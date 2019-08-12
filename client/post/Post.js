@@ -71,6 +71,7 @@ class Post extends Component {
     }
 
     deletePost = () => {
+        console.log("this.deletePost")
         const jwt = auth.isAuthenticated();
     
         remove({
@@ -78,12 +79,13 @@ class Post extends Component {
         }, {
             t: jwt.token
         }).then((data) => {
+            console.log(data)
             if(data.error) {
                 console.log(data.error);
             } else {
                 this.props.onRemove(this.props.post);
             }
-        })
+        });
     }
 
     like = () => {
@@ -120,7 +122,6 @@ class Post extends Component {
 
     render() {
         const { classes } = this.props;
-
         return (
             <Card className={classes.card}>
                 <CardHeader

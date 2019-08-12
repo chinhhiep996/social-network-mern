@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Typography from 'material-ui/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import List, {ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText} from 'material-ui/List'
+import List, { ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from 'material-ui/List'
 import { Redirect } from 'react-router-dom';
 import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
@@ -39,7 +39,7 @@ const styles = theme => ({
 class Profile extends Component {
     constructor({ match }) {
         super();
-        this.state = { 
+        this.state = {
             user: '',
             posts: [],
             redirectToSignin: false,
@@ -64,6 +64,7 @@ class Profile extends Component {
                     user: data,
                     following: following
                 });
+                this.loadPosts(data._id);
             }
         });
     }
@@ -90,19 +91,27 @@ class Profile extends Component {
         callApi({
             userId: jwt.user._id
         }, {
-            t: jwt.token
-        }, this.state.user._id).then((data) => {
-            if(data.error) {
-                this.setState({
-                    error: data.error
-                });
-            } else {
-                this.setState({ 
-                    user: data,
-                    following: !this.state.following
-                });
-            }
-        });
+                t: jwt.token
+            }, this.state.user._id).then((data) => {
+                if (data.error) {
+                    this.setState({
+                        error: data.error
+                    });
+                } else {
+                    this.setState({
+                        user: data,
+                        following: !this.state.following
+                    });
+                }
+            });
+    }
+
+    removePost = (post) => {
+        const updatedPosts = this.state.posts
+        const index = updatedPosts.indexOf(post)
+        updatedPosts.splice(index, 1)
+        this.setState({ posts: updatedPosts })
+        console.log(updatedPosts)
     }
 
     loadPosts = (user) => {
@@ -110,16 +119,16 @@ class Profile extends Component {
         listByUser({
             userId: user
         }, {
-            t: jwt.token
-        }).then((data) => {
-            if(data.error) {
-                console.log(data.error);
-            } else {
-                this.setState({
-                    posts: data
-                });
-            }
-        })
+                t: jwt.token
+            }).then((data) => {
+                if (data.error) {
+                    console.log(data.error);
+                } else {
+                    this.setState({
+                        posts: data
+                    });
+                }
+            })
     }
 
     render() {
@@ -141,8 +150,8 @@ class Profile extends Component {
                                 <Avatar src={photoUrl} className={classes.bigAvatar} />
                             </ListItemAvatar>
                             <ListItemText
-                                primary={ this.state.user.name }
-                                secondary={ this.state.user.email }
+                                primary={this.state.user.name}
+                                secondary={this.state.user.email}
                             />
                             {
                                 auth.isAuthenticated().user && auth.isAuthenticated().user._id == this.state.user._id
@@ -157,9 +166,9 @@ class Profile extends Component {
                                         </ListItemSecondaryAction>
                                     )
                                     : (
-                                        <FollowProfileButton 
+                                        <FollowProfileButton
                                             following={this.state.following}
-                                            onButtonClick={this.clickFollowButton} 
+                                            onButtonClick={this.clickFollowButton}
                                         />
                                     )
                             }
@@ -168,10 +177,10 @@ class Profile extends Component {
                         <ListItem>
                             <ListItemText primary={this.state.user.about}
                                 secondary={"Joined: " +
-                                (new Date(this.state.user.created)).toDateString()} />
+                                    (new Date(this.state.user.created)).toDateString()} />
                         </ListItem>
                     </List>
-                    <ProfileTabs user={this.state.user} />
+                    <ProfileTabs user={this.state.user} posts={this.state.posts} removePostUpdate={this.removePost} />
                 </Paper>
             </div>
         );
