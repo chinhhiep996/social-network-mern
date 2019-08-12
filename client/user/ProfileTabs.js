@@ -9,20 +9,19 @@ import PostList from './../post/PostList';
 
 class ProfileTabs extends Component {
     state = {
-        tab: 0,
-        posts: []
+        tab: 0
     }
 
     componentWillReceiveProps = (props) => {
         this.setState({
             tab: 0
-        })
+        });
     }
 
     handleTabChange = (event, value) => {
         this.setState({
             tab: value
-        })
+        });
     }
 
     render() {
@@ -43,7 +42,7 @@ class ProfileTabs extends Component {
                 </AppBar>
                 {
                    this.state.tab === 0 && <TabContainer>
-                       PostList
+                       <PostList posts={this.props.posts} removeUpdate={this.props.removePostUpdate} />
                    </TabContainer> 
                 }
                 {
@@ -53,7 +52,7 @@ class ProfileTabs extends Component {
                 }
                 {
                    this.state.tab === 2 && <TabContainer>
-                       Followers
+                       <FollowGrid people={this.props.user.followers} />
                    </TabContainer> 
                 }
             </div>

@@ -40,15 +40,18 @@ const create = (params, credentials, post) => {
 }
 
 const remove = (params, credentials) => {
-    return fetch(`/api/posts/${params.userId}`, {
+    return fetch(`/api/posts/${params.postId}`, {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${credentials.t}`
         }
     }).then((response) => {
+        console.log('remove then')
         return response.json();
     }).catch((err) => {
+        console.log('remove catch')
         console.log(err);
     })
 }

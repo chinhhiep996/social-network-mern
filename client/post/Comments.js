@@ -85,12 +85,11 @@ class Comments extends Component {
 
     render() {
         const { classes } = this.props;
-
         const commentBody = item => {
             return (
                 <p className={classes.commentText}>
                     <Link to={`/user/${item.postedBy._id}`}>
-                        {item.postId.name}
+                        {item.postedBy.name}
                     </Link>
                     <br />
                     {item.text}

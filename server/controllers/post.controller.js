@@ -2,13 +2,15 @@ import formidable from 'formidable';
 import fs from 'fs';
 
 import Post from '../models/post.model';
+import User from '../models/user.model';
 import errorHandler from '../helpers/dbErrorHandler';
 
 function listNewsFeed(req, res) {
     let following = req.profile.following;
     following.push(req.profile._id);
+    
     Post.find({ postedBy: { $in: req.profile.following } })
-        .populate('comments', 'text created')
+        // .populate('comments', 'text created')
         .populate('comments.postedBy', '_id name')
         .populate('postedBy', '_id name')
         .sort('-created')
@@ -41,6 +43,7 @@ function listByUser(req, res) {
 function create(req, res, next) {
     let form = new formidable.IncomingForm();
     form.keepExtensions = true;
+
     form.parse(req, (err, fields, files) => {
         if(err) {
             return res.status(400).json({
@@ -95,6 +98,7 @@ function isPoster(req, res, next) {
 
 function remove(req, res) {
     let post = req.post;
+    console.log("TCL: remove -> post", post)
     post.remove((err, deletedPost) => {
         if(err) {
             return res.status(400).json({
@@ -135,7 +139,7 @@ function unlike(req, res) {
 
 const comment = (req, res) => {
     let comment = req.body.comment;
-    comment.postedId = req.body.userId;
+    comment.postedBy = req.body.userId;
 
     Post.findByIdAndUpdate(req.body.postId, {
         $push: {comments: comment}
