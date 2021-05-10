@@ -29,7 +29,7 @@
     "formidable": "^1.2.1",
     "helmet": "^3.18.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.21",
     "material-ui": "^1.0.0-beta.43",
     "material-ui-icons": "^1.0.0-beta.36",
     "mongoose": "^5.0.16",
