@@ -1,0 +1,26 @@
+services:
+  # MongoDB service
+  mongo:
+    image: mongo:latest
+    container_name: social-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  # Node.js application service
+  app:
+    build: .
+    container_name: social-app-v2
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongo:27017/social
+      - PORT=3000
+      - JWT_SECRET=KHKDJSIOJFWEOF4346346JNDSKLFDSKLNVDLS
+    depends_on:
+      - mongo
+
+volumes:
+  mongo-data:
