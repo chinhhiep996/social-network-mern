@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import Card, { CardActions, CardContent } from 'material-ui/Card';
-import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
-import Typography from 'material-ui/Typography';
-import Icon from 'material-ui/Icon';
-import FileUpload from 'material-ui-icons/FileUpload';
+import Card, { CardActions, CardContent } from '@mui/material/Card';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Icon from '@mui/material/Icon';
+import FileUpload from '@mui/icons-material/FileUpload';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Avatar from 'material-ui/Avatar';
+import { withStyles } from '@mui/styles';
+import Avatar from '@mui/material/Avatar';
 
 import { read, update } from './api-user';
 import auth from './../auth/auth-helper';
@@ -18,24 +18,24 @@ const styles = theme => ({
         maxWidth: 600,
         margin: 'auto',
         textAlign: 'center',
-        marginTop: theme.spacing.unit * 5,
-        paddingBottom: theme.spacing.unit * 2
+        marginTop: 8 * 5,
+        paddingBottom: 8 * 2
     },
     title: {
-        margin: theme.spacing.unit * 2,
+        margin: 8 * 2,
         color: theme.palette.protectedTitle
     },
     error: {
         verticalAlign: 'middle'
     },
     textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
+        marginLeft: 8,
+        marginRight: 8,
         width: 300
     },
     submit: {
         margin: 'auto',
-        marginBottom: theme.spacing.unit * 2
+        marginBottom: 8 * 2
     },
     bigAvatar: {
         width: 60,
@@ -123,7 +123,7 @@ class EditProfile extends Component {
             <Card className={classes.card}>
                 <CardContent>
                     <Typography
-                        type="headline"
+                        variant="h5"
                         component="h2"
                         className={classes.title}
                     >

@@ -3,11 +3,7 @@ import mongoose from 'mongoose';
 import app from './express';
 import config from '../config/config';
 
-mongoose.set('useFindAndModify', false);
-mongoose.connect(config.mongoUri, { 
-    useNewUrlParser: true ,
-    useCreateIndex: true
-}).catch(err => {
+mongoose.connect(config.mongoUri).catch(err => {
     console.error(`Error connecting to MongoDB: ${err.message}`);
 });
 mongoose.connection.on('error', () => {

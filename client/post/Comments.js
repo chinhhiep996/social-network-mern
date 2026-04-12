@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { CardHeader } from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
-import Avatar from 'material-ui/Avatar';
-import Icon from 'material-ui/Icon';
+import { CardHeader } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import Avatar from '@mui/material/Avatar';
+import Icon from '@mui/material/Icon';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 
 import { comment, uncomment } from './api-post';
@@ -12,8 +12,8 @@ import auth from './../auth/auth-helper';
 
 const styles = theme => ({
     cardHeader: {
-        paddingTop: theme.spacing.unit,
-        paddingBottom: theme.spacing.unit
+        paddingTop: 8,
+        paddingBottom: 8
     },
     smallAvatar: {
         width: 25,
@@ -24,8 +24,8 @@ const styles = theme => ({
     },
     commentText: {
         backgroundColor: 'white',
-        padding: theme.spacing.unit,
-        margin: `2px ${theme.spacing.unit * 2}px 2px 2px`
+        padding: 8,
+        margin: `2px ${8 * 2}px 2px 2px`
     },
     commentDate: {
         display: 'block',

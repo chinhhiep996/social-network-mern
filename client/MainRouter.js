@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Home from './core/Home';
 import Menu from './core/Menu';
@@ -10,22 +10,27 @@ import Profile from './user/Profile';
 import EditProfile from './user/EditProfile';
 import PrivateRoute from './auth/PrivateRoute';
 
-class MainRouter extends Component {
-    render() {
-        return (
-            <div>
-                <Menu />
-                <Switch>
-                    <Route exact path="/" component={ Home } />
-                    <Route path="/users" component={ Users } />
-                    <Route path="/signup" component={ Signup } />
-                    <Route path="/signin" component={ Signin } />
-                    <PrivateRoute path="/user/edit/:userId" component={ EditProfile } />
-                    <Route path="/user/:userId" component={ Profile } />
-                </Switch>
-            </div>
-        );
-    }
+const MainRouter = () => {
+    return (
+        <div>
+            <Menu />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/users" element={<Users />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/signin" element={<Signin />} />
+                <Route 
+                    path="/user/edit/:userId" 
+                    element={
+                        <PrivateRoute>
+                            <EditProfile />
+                        </PrivateRoute>
+                    } 
+                />
+                <Route path="/user/:userId" element={<Profile />} />
+            </Routes>
+        </div>
+    );
 }
 
 export default MainRouter;

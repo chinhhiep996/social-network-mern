@@ -5,66 +5,59 @@ import Post from '../models/post.model';
 import User from '../models/user.model';
 import errorHandler from '../helpers/dbErrorHandler';
 
-function listNewsFeed(req, res) {
-    let following = req.profile.following;
-    following.push(req.profile._id);
-    
-    Post.find({ postedBy: { $in: req.profile.following } })
-        // .populate('comments', 'text created')
-        .populate('comments.postedBy', '_id name')
-        .populate('postedBy', '_id name')
-        .sort('-created')
-        .exec((err, posts) => {
-            if(err) {
-                return res.status(400).json({
-                    error: errorHandler.getErrorMessage(err)
-                })
-            }
-            res.json(posts);
+async function listNewsFeed(req, res) {
+    try {
+        let following = req.profile.following;
+        following.push(req.profile._id);
+
+        let posts = await Post.find({ postedBy: { $in: following } })
+            .populate('comments.postedBy', '_id name')
+            .populate('postedBy', '_id name')
+            .sort('-created');
+        res.json(posts);
+    } catch (err) {
+        return res.status(400).json({
+            error: errorHandler.getErrorMessage(err)
         })
+    }
 }
 
-function listByUser(req, res) {
-    Post.find({ postedBy: req.profile._id })
-        .populate('comments', 'text created')
-        .populate('comments.postedBy', '_id name')
-        .populate('postedBy', '_id name')
-        .sort('-created')
-        .exec((err, posts) => {
-            if(err) {
-                return res.status(400).json({
-                    error: errorHandler.getErrorMessage(err)
-                })
-            }
-            res.json(posts);
+async function listByUser(req, res) {
+    try {
+        let posts = await Post.find({ postedBy: req.profile._id })
+            .populate('comments.postedBy', '_id name')
+            .populate('postedBy', '_id name')
+            .sort('-created');
+        res.json(posts);
+    } catch (err) {
+        return res.status(400).json({
+            error: errorHandler.getErrorMessage(err)
         })
+    }
 }
 
-function create(req, res, next) {
-    let form = new formidable.IncomingForm();
-    form.keepExtensions = true;
-
-    form.parse(req, (err, fields, files) => {
-        if(err) {
-            return res.status(400).json({
-                error: 'Image could not be uploaded'
-            })
+async function create(req, res) {
+    let form = formidable({});
+    try {
+        const [fields, files] = await form.parse(req);
+        let postData = {};
+        for (const key in fields) {
+            postData[key] = fields[key][0];
         }
-        let post = new Post(fields);
+        let post = new Post(postData);
         post.postedBy = req.profile;
-        if(files.photo) {
-            post.photo.data = fs.readFileSync(files.photo.path);
-            post.photo.contentType = files.photo.type;
+        if (files.photo) {
+            const photo = Array.isArray(files.photo) ? files.photo[0] : files.photo;
+            post.photo.data = fs.readFileSync(photo.filepath);
+            post.photo.contentType = photo.mimetype;
         }
-        post.save((err, result) => {
-            if(err) {
-                return res.status(400).json({
-                    error: errorHandler.getErrorMessage(err)
-                })
-            }
-            res.json(result);
+        let result = await post.save();
+        res.json(result);
+    } catch (err) {
+        return res.status(400).json({
+            error: 'Image could not be uploaded'
         })
-    })
+    }
 }
 
 function photo(req, res, next) {
@@ -72,23 +65,27 @@ function photo(req, res, next) {
     return res.send(req.post.photo.data);
 }
 
-function postById(req, res, next, id) {
-    Post.findById(id)
-        .populate('postedBy', '_id name')
-        .exec((err, post) => {
-            if(err || !post) {
-                return res.status(400).json({
-                    error: 'Post not found'
-                });
-            }
-            req.post = post;
-            next();
+async function postById(req, res, next, id) {
+    try {
+        let post = await Post.findById(id)
+            .populate('postedBy', '_id name');
+        if (!post) {
+            return res.status(400).json({
+                error: 'Post not found'
+            });
+        }
+        req.post = post;
+        next();
+    } catch (err) {
+        return res.status(400).json({
+            error: 'Could not retrieve post'
         });
+    }
 }
 
 function isPoster(req, res, next) {
-    let isPoster = req.post && req.auth && req.post.postById._id == req.auth._id;
-    if(!isPoster) {
+    let isPoster = req.post && req.auth && req.post.postedBy._id == req.auth._id;
+    if (!isPoster) {
         return res.status(403).json({
             error: 'User is not authorized'
         });
@@ -96,95 +93,88 @@ function isPoster(req, res, next) {
     next();
 }
 
-function remove(req, res) {
-    let post = req.post;
-    console.log("TCL: remove -> post", post)
-    post.remove((err, deletedPost) => {
-        if(err) {
-            return res.status(400).json({
-                error: errorHandler.getErrorMessage(err)
-            })
-        }
+async function remove(req, res) {
+    try {
+        let post = req.post;
+        let deletedPost = await post.deleteOne();
         res.json(deletedPost);
-    });
-}
-
-function like(req, res) {
-    Post.findByIdAndUpdate(req.body.postId,{
-        $push: {likes: req.body.userId}
-    }, {new: true})
-        .exec((err, result) => {
-            if(err) {
-                return res.status(400).json({
-                    error: errorHandler.getErrorMessage(err)
-                })
-            }
-            res.json(result);
+    } catch (err) {
+        return res.status(400).json({
+            error: errorHandler.getErrorMessage(err)
         })
+    }
 }
 
-function unlike(req, res) {
-    Post.findByIdAndUpdate(req.body.postId,{
-        $pull: {likes: req.body.userId}
-    }, {new: true})
-        .exec((err, result) => {
-            if(err) {
-                return res.status(400).json({
-                    error: errorHandler.getErrorMessage(err)
-                })
-            }
-            res.json(result);
+async function like(req, res) {
+    try {
+        let result = await Post.findByIdAndUpdate(req.body.postId, {
+            $push: { likes: req.body.userId }
+        }, { new: true });
+        res.json(result);
+    } catch (err) {
+        return res.status(400).json({
+            error: errorHandler.getErrorMessage(err)
         })
+    }
 }
 
-const comment = (req, res) => {
-    let comment = req.body.comment;
-    comment.postedBy = req.body.userId;
-
-    Post.findByIdAndUpdate(req.body.postId, {
-        $push: {comments: comment}
-    }, {new: true})
-        .populate('comments.postedBy', '_id name')
-        .populate('postedBy', '_id name')
-        .exec((err, result) => {
-            if(err) {
-                return res.status(400).json({
-                    error: errorHandler.getErrorMessage(err)
-                })
-            }
-            res.json(result);
+async function unlike(req, res) {
+    try {
+        let result = await Post.findByIdAndUpdate(req.body.postId, {
+            $pull: { likes: req.body.userId }
+        }, { new: true });
+        res.json(result);
+    } catch (err) {
+        return res.status(400).json({
+            error: errorHandler.getErrorMessage(err)
         })
+    }
 }
 
-const uncomment = (req, res) => {
-    let comment = req.body.comment;
+async function comment(req, res) {
+    try {
+        let comment = req.body.comment;
+        comment.postedBy = req.body.userId;
 
-    Post.findByIdAndUpdate(req.body.postId, {
-        $pull: {comments: {_id: comment._id}}
-    }, {new: true})
-        .populate('comments.postedBy', '_id name')
-        .populate('postedBy', '_id name')
-        .exec((err, result) => {
-            if(err) {
-                return res.status(400).json({
-                    error: errorHandler.getErrorMessage(err)
-                })
-            }
-            res.json(result);
+        let result = await Post.findByIdAndUpdate(req.body.postId, {
+            $push: { comments: comment }
+        }, { new: true })
+            .populate('comments.postedBy', '_id name')
+            .populate('postedBy', '_id name');
+        res.json(result);
+    } catch (err) {
+        return res.status(400).json({
+            error: errorHandler.getErrorMessage(err)
         })
+    }
 }
 
+async function uncomment(req, res) {
+    try {
+        let comment = req.body.comment;
+        let result = await Post.findByIdAndUpdate(req.body.postId, {
+            $pull: { comments: { _id: comment._id } }
+        }, { new: true })
+            .populate('comments.postedBy', '_id name')
+            .populate('postedBy', '_id name');
+        res.json(result);
+    } catch (err) {
+        return res.status(400).json({
+            error: errorHandler.getErrorMessage(err)
+        })
+    }
+}
 
-export default { 
-    listNewsFeed, 
-    listByUser, 
-    create, 
-    photo, 
-    postById, 
-    isPoster, 
-    remove, 
-    like, 
-    unlike, 
+export default {
+    listNewsFeed,
+    listByUser,
+    create,
+    photo,
+    postById,
+    isPoster,
+    remove,
+    like,
+    unlike,
     comment,
     uncomment
 };

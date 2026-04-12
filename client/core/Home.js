@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Card, { CardContent, CardMedia } from 'material-ui/Card';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@mui/styles';
+import Card, { CardContent, CardMedia } from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
 
 import seashellImg from './../assets/images/seashell.jpeg'
 import auth from '../auth/auth-helper';
-import { Grid } from 'material-ui';
+import { Grid } from '@mui/material';
 import Newsfeed from '../post/Newsfeed';
 import FindPeople from '../user/FindPeople';
 
@@ -18,11 +18,11 @@ const styles = theme => ({
     card: {
         maxWidth: 600,
         margin: 'auto',
-        marginTop: theme.spacing.unit * 5
+        marginTop: 8 * 5
     },
     title: {
-        padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 2.5}px
-    ${theme.spacing.unit * 2}px`,
+        padding: `${8 * 3}px ${8 * 2.5}px
+    ${8 * 2}px`,
         color: theme.palette.text.secondary
     },
     media: {
@@ -65,12 +65,12 @@ class Home extends Component {
                     <Grid container spacing={24}>
                         <Grid item xs={12}>
                             <Card className={classes.card}>
-                                <Typography type="headline" component="h2" className={classes.title}>
+                                <Typography variant="h5" component="h2" className={classes.title}>
                                     Home Page
                                 </Typography>
                                 <CardMedia className={classes.media} image={seashellImg} title="Unicorn Shells" />
                                 <CardContent>
-                                    <Typography type="body1" component="p">
+                                    <Typography variant="body1" component="p">
                                         Welcome to the Social Application home page
                                     </Typography>
                                 </CardContent>

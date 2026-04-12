@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from 'material-ui/Button';
+import Button from '@mui/material/Button';
 
 import { unfollow, follow } from './api-user.js';
 

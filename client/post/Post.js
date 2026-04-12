@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
-import Typography from 'material-ui/Typography';
-import Avatar from 'material-ui/Avatar';
-import IconButton from 'material-ui/IconButton';
-import DeleteIcon from 'material-ui-icons/Delete';
-import FavoriteIcon from 'material-ui-icons/Favorite';
-import FavoriteBorderIcon from 'material-ui-icons/FavoriteBorder';
-import CommentIcon from 'material-ui-icons/Comment';
-import Divider from 'material-ui/Divider';
+import Card, { CardHeader, CardContent, CardActions } from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import CommentIcon from '@mui/icons-material/Comment';
+import Divider from '@mui/material/Divider';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 
 import auth from './../auth/auth-helper';
@@ -20,30 +20,30 @@ const styles = theme => ({
     card: {
         maxWidth: 600,
         margin: 'auto',
-        marginBottom: theme.spacing.unit * 3,
+        marginBottom: 8 * 3,
         backgroundColor: 'rgba(0, 0, 0, 0.06)'
     },
     cardContent: {
         backgroundColor: 'white',
-        padding: `${theme.spacing.unit * 2}px 0px`
+        padding: `${8 * 2}px 0px`
     },
     cardHeader: {
-        paddingTop: theme.spacing.unit,
-        paddingBottom: theme.spacing.unit
+        paddingTop: 8,
+        paddingBottom: 8
     },
     text: {
-        margin: theme.spacing.unit * 2
+        margin: 8 * 2
     },
     photo: {
         textAlign: 'center',
         backgroundColor: '#f2f5f4',
-        padding: theme.spacing.unit
+        padding: 8
     },
     media: {
         height: 200
     },
     button: {
-        margin: theme.spacing.unit,
+        margin: 8,
     }
 });
 

@@ -1,20 +1,14 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import auth from './auth-helper';
 
-function PrivateRoute({ component: Component, ...rest }) {
-    return (
-        <Route {...rest} render={props => (
-            auth.isAuthenticated() ? (
-                <Component {...props} />
-            ) : (
-                    <Redirect to={{
-                        pathname: '/signin',
-                        state: { from: props.location }
-                    }} />
-                )
-        )} />
-    )
-}
+const PrivateRoute = ({ children }) => {
+    const location = useLocation();
+    return auth.isAuthenticated() ? (
+        children
+    ) : (
+        <Navigate to="/signin" state={{ from: location }} replace />
+    );
+};
 
 export default PrivateRoute;
