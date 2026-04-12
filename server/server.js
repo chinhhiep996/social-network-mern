@@ -7,9 +7,11 @@ mongoose.set('useFindAndModify', false);
 mongoose.connect(config.mongoUri, { 
     useNewUrlParser: true ,
     useCreateIndex: true
+}).catch(err => {
+    console.error(`Error connecting to MongoDB: ${err.message}`);
 });
 mongoose.connection.on('error', () => {
-    throw new Error(`unable to connect to database: ${config.mongoUri}`)
+    console.error(`unable to connect to database: ${config.mongoUri}`);
 });
 
 app.listen(config.port, (err) => {

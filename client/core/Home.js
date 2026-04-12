@@ -71,7 +71,7 @@ class Home extends Component {
                                 <CardMedia className={classes.media} image={seashellImg} title="Unicorn Shells" />
                                 <CardContent>
                                     <Typography type="body1" component="p">
-                                        Welcome to the Socical Application home page
+                                        Welcome to the Social Application home page
                                     </Typography>
                                 </CardContent>
                             </Card>

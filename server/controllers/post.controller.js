@@ -17,7 +17,7 @@ function listNewsFeed(req, res) {
         .exec((err, posts) => {
             if(err) {
                 return res.status(400).json({
-                    error: errorHandler.getErrorMassage(err)
+                    error: errorHandler.getErrorMessage(err)
                 })
             }
             res.json(posts);
@@ -33,7 +33,7 @@ function listByUser(req, res) {
         .exec((err, posts) => {
             if(err) {
                 return res.status(400).json({
-                    error: errorHandler.getErrorMassage(err)
+                    error: errorHandler.getErrorMessage(err)
                 })
             }
             res.json(posts);
@@ -59,7 +59,7 @@ function create(req, res, next) {
         post.save((err, result) => {
             if(err) {
                 return res.status(400).json({
-                    error: errorHandler.getErrorMassage(err)
+                    error: errorHandler.getErrorMessage(err)
                 })
             }
             res.json(result);
@@ -102,7 +102,7 @@ function remove(req, res) {
     post.remove((err, deletedPost) => {
         if(err) {
             return res.status(400).json({
-                error: errorHandler.getErrorMassage(err)
+                error: errorHandler.getErrorMessage(err)
             })
         }
         res.json(deletedPost);
@@ -116,7 +116,7 @@ function like(req, res) {
         .exec((err, result) => {
             if(err) {
                 return res.status(400).json({
-                    error: errorHandler.getErrorMassage(err)
+                    error: errorHandler.getErrorMessage(err)
                 })
             }
             res.json(result);
@@ -130,7 +130,7 @@ function unlike(req, res) {
         .exec((err, result) => {
             if(err) {
                 return res.status(400).json({
-                    error: errorHandler.getErrorMassage(err)
+                    error: errorHandler.getErrorMessage(err)
                 })
             }
             res.json(result);
@@ -149,7 +149,7 @@ const comment = (req, res) => {
         .exec((err, result) => {
             if(err) {
                 return res.status(400).json({
-                    error: errorHandler.getErrorMassage(err)
+                    error: errorHandler.getErrorMessage(err)
                 })
             }
             res.json(result);
@@ -167,7 +167,7 @@ const uncomment = (req, res) => {
         .exec((err, result) => {
             if(err) {
                 return res.status(400).json({
-                    error: errorHandler.getErrorMassage(err)
+                    error: errorHandler.getErrorMessage(err)
                 })
             }
             res.json(result);

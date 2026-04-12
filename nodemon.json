@@ -3,5 +3,5 @@
     "watch": [
         "./server"
     ],
-    "exec": "webpack --mode=production --config webpack.config.server.js && node ./dist/server.generated.js"
+    "exec": "set NODE_OPTIONS=--openssl-legacy-provider && npx webpack --mode=production --config webpack.config.server.js && node ./dist/server.generated.js"
 }
