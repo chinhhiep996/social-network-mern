@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
-import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
-import Typography from 'material-ui/Typography';
-import Avatar from 'material-ui/Avatar';
-import Icon from 'material-ui/Icon';
+import { Card, CardHeader, CardContent, CardActions } from '@mui/material';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import Icon from '@mui/material/Icon';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import IconButton from 'material-ui/IconButton';
-import PhotoCamera from 'material-ui-icons/PhotoCamera';
+import { withStyles } from '@mui/styles';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 import { create } from './api-post.js';
 import auth from './../auth/auth-helper';
@@ -16,12 +16,12 @@ import auth from './../auth/auth-helper';
 const styles = theme => ({
     root: {
         backgroundColor: '#efefef',
-        padding: `${theme.spacing.unit * 3}px 0px 1px`
+        padding: `${8 * 3}px 0px 1px`
     },
     card: {
         maxWidth: 600,
         margin: 'auto',
-        marginBottom: theme.spacing.unit * 3,
+        marginBottom: 8 * 3,
         backgroundColor: 'rgba(65, 150, 136, 0.09)',
         boxShadow: 'none'
     },
@@ -42,12 +42,12 @@ const styles = theme => ({
         display: 'none',
     },
     textField: {
-        marginLeft: theme.spacing.unit * 2,
-        marginRight: theme.spacing.unit * 2,
+        marginLeft: 8 * 2,
+        marginRight: 8 * 2,
         width: '90%'
     },
     submit: {
-        margin: theme.spacing.unit * 2
+        margin: 8 * 2
     },
     filename: {
         verticalAlign: 'super'
@@ -146,7 +146,7 @@ class NewPost extends Component {
                         }
                     </CardContent>
                     <CardActions>
-                        <Button color="primary" variant="raised"
+                        <Button color="primary" variant="contained"
                             disabled={this.state.text === ''}
                             onClick={this.clickPost}
                             className={classes.submit}>

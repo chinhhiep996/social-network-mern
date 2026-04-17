@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
-import List, { ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@mui/styles';
+import Paper from '@mui/material/Paper';
+import { List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import Snackbar from 'material-ui/Snackbar';
-import ViewIcon from 'material-ui-icons/Visibility';
+import Snackbar from '@mui/material/Snackbar';
+import ViewIcon from '@mui/icons-material/Visibility';
 
 import { findPeople, follow } from './api-user.js';
 import auth from './../auth/auth-helper';
 
 const styles = theme => ({
     root: theme.mixins.gutters({
-        padding: theme.spacing.unit,
+        padding: 8,
         margin: 0
     }),
     title: {
-        margin: `${theme.spacing.unit * 3}px ${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+        margin: `${8 * 3}px ${8}px ${8 * 2}px`,
         color: theme.palette.openTitle,
         fontSize: '1em'
     },
     avatar: {
-        marginRight: theme.spacing.unit * 1
+        marginRight: 8 * 1
     },
     follow: {
-        right: theme.spacing.unit * 2
+        right: 8 * 2
     },
     snack: {
         color: theme.palette.protectedTitle
@@ -86,7 +86,7 @@ class FindPeople extends Component {
         return (
             <div>
                 <Paper className={classes.root} elevation={4}>
-                    <Typography type="title" className={classes.title}>
+                    <Typography variant="h6" className={classes.title}>
                         Who to follow
                     </Typography>
                     <List>
@@ -101,14 +101,14 @@ class FindPeople extends Component {
                                             <ListItemText primary={item.name} />
                                             <ListItemSecondaryAction className={classes.follow}>
                                                 <Link to={`/user/${item._id}`}>
-                                                    <IconButton variant="raised" color="secondary"
+                                                    <IconButton variant="contained" color="secondary"
                                                         className={classes.viewButton}>
                                                         <ViewIcon />
                                                     </IconButton>
                                                 </Link>
                                                 <Button
                                                     aria-label="Follow"
-                                                    variant="raised"
+                                                    variant="contained"
                                                     color="primary"
                                                     onClick={this.clickFollow.bind(this, item, i)}>
                                                     Follow

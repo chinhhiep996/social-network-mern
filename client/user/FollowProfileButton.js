@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from 'material-ui/Button';
+import Button from '@mui/material/Button';
 
 import { unfollow, follow } from './api-user.js';
 
@@ -20,14 +20,14 @@ class FollowProfileButton extends Component {
                     this.props.following
                     ? (
                         <Button 
-                            variant="raised" 
+                            variant="contained" 
                             color="secondary"
                             onClick={this.unfollowClick}>
                                 Unfollow
                         </Button>
                     ) : (
                         <Button 
-                            variant="raised" 
+                            variant="contained" 
                             color="secondary"
                             onClick={this.followClick}>
                                 Follow

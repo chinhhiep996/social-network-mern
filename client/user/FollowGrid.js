@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Avatar from 'material-ui/Avatar';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@mui/styles';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import GridList, { GridListTile } from 'material-ui/GridList';
+import { ImageList, ImageListItem } from '@mui/material';
 
 const styles = theme => ({
     root: {
-        paddingTop: theme.spacing.unit * 2,
+        paddingTop: 8 * 2,
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
@@ -36,20 +36,20 @@ class FollowGrid extends Component {
 
         return (
             <div className={classes.root}>
-                <GridList cellHeight={160} className={classes.gridList} cols={4}>
+                <ImageList cellHeight={160} className={classes.gridList} cols={4}>
                     {
                         this.props.people.map((person, i) => {
-                            return <GridListTile styles={{'height': 120}} key={i}>
+                            return <ImageListItem styles={{'height': 120}} key={i}>
                                 <Link to={`/user/${person._id}`}>
                                     <Avatar src={`/api/users/photo/${person._id}`} className={classes.bigAvatar} />
                                     <Typography className={classes.tileText}>
                                         {person.name}
                                     </Typography>
                                 </Link>
-                            </GridListTile>
+                            </ImageListItem>
                         })
                     }
-                </GridList>
+                </ImageList>
             </div>
         );
     }

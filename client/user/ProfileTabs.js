@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import AppBar from 'material-ui/AppBar';
-import Typography from 'material-ui/Typography';
-import Tabs, { Tab } from 'material-ui/Tabs';
+import AppBar from '@mui/material/AppBar';
+import Typography from '@mui/material/Typography';
+import { Tabs, Tab } from '@mui/material';
 
 import FollowGrid from './../user/FollowGrid';
 import PostList from './../post/PostList';
@@ -33,7 +33,7 @@ class ProfileTabs extends Component {
                         onChange={this.handleTabChange}
                         indicatorColor="primary"
                         textColor="primary"
-                        fullWidth
+                        variant="fullWidth"
                     >
                         <Tab label="Posts" />
                         <Tab label="Following" />

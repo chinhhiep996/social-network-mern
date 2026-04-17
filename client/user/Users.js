@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Paper from 'material-ui/Paper';
-import Typography from 'material-ui/Typography';
-import List, { ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
-import ArrowForward from 'material-ui-icons/ArrowForward';
-import Person from 'material-ui-icons/Person';
-import IconButton from 'material-ui/IconButton';
-import { withStyles } from 'material-ui/styles';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import { List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import ArrowForward from '@mui/icons-material/ArrowForward';
+import Person from '@mui/icons-material/Person';
+import IconButton from '@mui/material/IconButton';
+import { withStyles } from '@mui/styles';
 
 import { list } from './api-user';
 
 const styles = theme => ({
     root: theme.mixins.gutters({
-        padding: theme.spacing.unit,
-        margin: theme.spacing.unit * 5
+        padding: 8,
+        margin: 8 * 5
     }),
     title: {
-        margin: `${theme.spacing.unit * 4}px 0 ${theme.spacing.unit * 2}px`,
+        margin: `${8 * 4}px 0 ${8 * 2}px`,
         color: theme.palette.openTitle
     },
     bigAvatar: {
@@ -44,7 +44,7 @@ class Users extends Component {
         const { classes } = this.props
         return (
             <Paper className={classes.root} elevation={4}>
-                <Typography type="title" className={classes.title}>
+                <Typography variant="h6" className={classes.title}>
                     All Users
                 </Typography>
                 <List dense>

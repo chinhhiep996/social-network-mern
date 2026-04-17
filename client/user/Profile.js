@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import Typography from 'material-ui/Typography';
+import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import List, { ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from 'material-ui/List'
+import { withStyles } from '@mui/styles';
+import { List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from '@mui/material'
 import { Redirect } from 'react-router-dom';
-import Paper from 'material-ui/Paper';
-import Avatar from 'material-ui/Avatar';
-import IconButton from 'material-ui/IconButton';
-import Edit from 'material-ui-icons/Edit';
-import Divider from 'material-ui/Divider';
+import Paper from '@mui/material/Paper';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import Edit from '@mui/icons-material/Edit';
+import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
 
 import auth from './../auth/auth-helper';
@@ -22,11 +22,11 @@ const styles = theme => ({
     root: theme.mixins.gutters({
         maxWidth: 600,
         margin: 'auto',
-        padding: theme.spacing.unit * 3,
-        marginTop: theme.spacing.unit * 5
+        padding: 8 * 3,
+        marginTop: 8 * 5
     }),
     title: {
-        margin: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 2}px`,
+        margin: `${8 * 3}px 0 ${8 * 2}px`,
         color: theme.palette.protectedTitle
     },
     bigAvatar: {
@@ -143,7 +143,7 @@ class Profile extends Component {
         return (
             <div>
                 <Paper className={classes.root} elevation={4}>
-                    <Typography type="title" className={classes.title}> Profile </Typography>
+                    <Typography variant="h6" className={classes.title}> Profile </Typography>
                     <List dense>
                         <ListItem>
                             <ListItemAvatar>

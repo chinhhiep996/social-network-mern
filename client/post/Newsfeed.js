@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Card from 'material-ui/Card';
-import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
+import { withStyles } from '@mui/styles';
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
 
 import auth from './../auth/auth-helper';
 import PostList from './PostList';
@@ -14,10 +14,10 @@ const styles = theme => ({
     card: {
         margin: 'auto',
         paddingTop: 0,
-        paddingBottom: theme.spacing.unit * 3
+        paddingBottom: 8 * 3
     },
     title: {
-        padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 2.5}px ${theme.spacing.unit * 2}px`,
+        padding: `${8 * 3}px ${8 * 2.5}px ${8 * 2}px`,
         color: theme.palette.openTitle,
         fontSize: '1em'
     },
@@ -75,7 +75,7 @@ class NewsFeed extends Component {
 
         return (
             <Card className={classes.card}>
-                <Typography type="title" className={classes.title}>
+                <Typography variant="h6" className={classes.title}>
                     NewsFeed
                 </Typography>
                 <Divider />
