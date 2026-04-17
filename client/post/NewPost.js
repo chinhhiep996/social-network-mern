@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Card, { CardHeader, CardContent, CardActions } from '@mui/material/Card';
+import { Card, CardHeader, CardContent, CardActions } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -146,7 +146,7 @@ class NewPost extends Component {
                         }
                     </CardContent>
                     <CardActions>
-                        <Button color="primary" variant="raised"
+                        <Button color="primary" variant="contained"
                             disabled={this.state.text === ''}
                             onClick={this.clickPost}
                             className={classes.submit}>

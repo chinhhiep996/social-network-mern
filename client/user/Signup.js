@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Card, { CardActions, CardContent } from '@mui/material/Card';
+import { Card, CardActions, CardContent } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Icon from '@mui/material/Icon';
 import PropTypes from 'prop-types';
 import { withStyles } from '@mui/styles';
-import Dialog, { DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material/Dialog';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import { create } from './api-user';
@@ -118,7 +118,7 @@ class Signup extends Component {
                     <CardActions>
                         <Button
                             color="primary"
-                            variant="raised"
+                            variant="contained"
                             onClick={this.clickSubmit}
                             className={classes.submit}
                             onClick={this.clickSubmit}
@@ -139,7 +139,7 @@ class Signup extends Component {
                             <Button
                                 color="primary"
                                 autoFocus="autoFocus"
-                                variant="raised">
+                                variant="contained">
                                 Sign In
                             </Button>
                         </Link>

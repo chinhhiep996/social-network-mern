@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
 import DeleteIcon from '@mui/icons-material/Delete'
-import Dialog, { DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material/Dialog'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { Redirect, Link } from 'react-router-dom';
 
 import { remove } from './api-user';

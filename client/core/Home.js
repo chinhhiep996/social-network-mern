@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@mui/styles';
-import Card, { CardContent, CardMedia } from '@mui/material/Card';
+import { Card, CardContent, CardMedia } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
 import seashellImg from './../assets/images/seashell.jpeg'

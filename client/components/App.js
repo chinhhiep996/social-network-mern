@@ -1,12 +1,12 @@
 import React from "react";
-import { MuiThemeProvider, createMuiTheme } from '@mui/styles';
-import { indigo, pink } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { indigo, pink } from '@mui/material/colors';
 import { hot } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
 
 import MainRouter from '../MainRouter';
 
-const theme = createMuiTheme({
+const theme = createTheme({
     palette: {
         primary: {
             light: '#757de8',
@@ -29,9 +29,9 @@ const theme = createMuiTheme({
 function App() {
     return (
         <BrowserRouter>
-            <MuiThemeProvider theme={theme}>
+            <ThemeProvider theme={theme}>
                 <MainRouter />
-            </MuiThemeProvider>
+            </ThemeProvider>
         </BrowserRouter>
     );
 }

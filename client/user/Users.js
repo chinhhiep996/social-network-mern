@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import List, { ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from '@mui/material/List';
+import { List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import ArrowForward from '@mui/icons-material/ArrowForward';
 import Person from '@mui/icons-material/Person';

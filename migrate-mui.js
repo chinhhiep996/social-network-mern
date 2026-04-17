@@ -29,7 +29,13 @@ const replacements = [
     [/GridListTile/g, 'ImageListItem'],
     [/GridList/g, 'ImageList'],
     [/fullWidth/g, 'variant="fullWidth"'],
+    [/import (.*), \{ (.*) \} from '@mui\/material\/.*'/g, "import { $1, $2 } from '@mui/material'"],
     [/import \{ (.*) \} from '@mui\/material\/.*'/g, "import { $1 } from '@mui/material'"],
+    [/import (.*) from '@mui\/material\/(.*)'/g, (match, p1, p2) => {
+        if (p1.trim() === p2.trim()) return `import ${p1} from '@mui/material/${p2}'`;
+        return `import { ${p1} } from '@mui/material'`;
+    }],
+    [/@mui\/styles/g, "@mui/styles"], // ensure consistency
 ];
 
 ['client', 'server'].forEach(dir => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import Card, { CardActions, CardContent } from '@mui/material/Card';
+import { Card, CardActions, CardContent } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -136,7 +136,7 @@ class EditProfile extends Component {
                         className={classes.input}
                         id="icon-button-file" />
                     <label htmlFor="icon-button-file">
-                        <Button variant="raised" color="default" component="span">
+                        <Button variant="contained" color="default" component="span">
                             Upload <FileUpload />
                         </Button>
                     </label>
@@ -194,7 +194,7 @@ class EditProfile extends Component {
                 <CardActions>
                     <Button
                         color="primary"
-                        variant="raised"
+                        variant="contained"
                         onClick={this.clickSubmit}
                         className={classes.submit}
                     >

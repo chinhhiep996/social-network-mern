@@ -17,16 +17,16 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { SheetsRegistry } from 'react-jss';
 import JssProvider from 'react-jss';
-import { ThemeProvider, createTheme, StyledEngineProvider } from '@mui/material';
-import { indigo, pink } from '@mui/material';
-import { StaticRouter } from 'react-router';
+import { ThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
+import { indigo, pink } from '@mui/material/colors';
+import { StaticRouter } from 'react-router-dom';
 
 import MainRouter from './../client/MainRouter';
 //end
 
 const CURRENT_WORKING_DIR = process.cwd();
 const app = express();
-// devBundle.compile(app); // Temporary disable to check server first
+devBundle.compile(app); 
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')));
 
 app.use(bodyParser.json());
@@ -41,7 +41,7 @@ app.use('/', userRoutes);
 app.use('/', authRoutes);
 app.use('/', postRoutes);
 
-app.get('*all', (req, res) => {
+app.get(/(.*)/, (req, res) => {
     const sheetsRegistry = new SheetsRegistry();
     const theme = createTheme({
         palette: {
@@ -57,9 +57,9 @@ app.get('*all', (req, res) => {
                 dark: '#c60055',
                 contrastText: '#000'
             },
+            openTitle: indigo['400'],
+            protectedTitle: pink['400'],
         },
-        openTitle: indigo['400'],
-        protectedTitle: pink['400'],
     });
     const context = {};
     const markup = ReactDOMServer.renderToString(
@@ -82,6 +82,9 @@ app.get('*all', (req, res) => {
 app.use((err, req, res, next) => {
     if (err.name === 'UnauthorizedError') {
         res.status(401).json({ 'error': err.name + ": " + err.message })
+    } else {
+        console.error(err);
+        res.status(500).send("Something broke!");
     }
 })
 

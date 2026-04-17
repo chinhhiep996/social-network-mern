@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Card, { CardHeader, CardContent, CardActions } from '@mui/material/Card';
+import { Card, CardHeader, CardContent, CardActions } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';

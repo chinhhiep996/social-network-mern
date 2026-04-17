@@ -20,14 +20,14 @@ class FollowProfileButton extends Component {
                     this.props.following
                     ? (
                         <Button 
-                            variant="raised" 
+                            variant="contained" 
                             color="secondary"
                             onClick={this.unfollowClick}>
                                 Unfollow
                         </Button>
                     ) : (
                         <Button 
-                            variant="raised" 
+                            variant="contained" 
                             color="secondary"
                             onClick={this.followClick}>
                                 Follow

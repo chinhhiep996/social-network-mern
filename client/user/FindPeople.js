@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@mui/styles';
 import Paper from '@mui/material/Paper';
-import List, { ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from '@mui/material/List';
+import { List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -101,14 +101,14 @@ class FindPeople extends Component {
                                             <ListItemText primary={item.name} />
                                             <ListItemSecondaryAction className={classes.follow}>
                                                 <Link to={`/user/${item._id}`}>
-                                                    <IconButton variant="raised" color="secondary"
+                                                    <IconButton variant="contained" color="secondary"
                                                         className={classes.viewButton}>
                                                         <ViewIcon />
                                                     </IconButton>
                                                 </Link>
                                                 <Button
                                                     aria-label="Follow"
-                                                    variant="raised"
+                                                    variant="contained"
                                                     color="primary"
                                                     onClick={this.clickFollow.bind(this, item, i)}>
                                                     Follow

@@ -4,7 +4,7 @@ import { withStyles } from '@mui/styles';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import ImageList, { ImageListItem } from '@mui/material/ImageList';
+import { ImageList, ImageListItem } from '@mui/material';
 
 const styles = theme => ({
     root: {

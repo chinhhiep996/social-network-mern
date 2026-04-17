@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@mui/styles';
-import List, { ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from '@mui/material/List'
+import { List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from '@mui/material'
 import { Redirect } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
