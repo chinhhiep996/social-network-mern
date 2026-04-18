@@ -4,5 +4,6 @@
         "./server",
         "./config"
     ],
-    "exec": "set NODE_OPTIONS=--openssl-legacy-provider && npx webpack --config webpack.config.server.js && node ./dist/server.generated.js"
+    "exec": "set NODE_OPTIONS=--openssl-legacy-provider && npx webpack --config webpack.config.server.js && node ./dist/server.generated.js",
+    "errorFile": "logs/debug.log"
 }

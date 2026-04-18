@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Social is a social media application with rudimentary features inspired by existing social media platforms such as Facebook and Twitter.",
   "scripts": {
-    "dev": "nodemon",
+    "dev": "nodemon 2>>logs/dev_run.log",
     "build": "set NODE_OPTIONS=--openssl-legacy-provider && npx webpack --config webpack.config.client.production.js && set NODE_OPTIONS=--openssl-legacy-provider && npx webpack --mode=production --config webpack.config.server.js",
-    "start": "node ./dist/server.generated.js"
+    "start": "node ./dist/server.generated.js 2>>logs/server.log"
   },
   "author": "hiepbc",
   "license": "MIT",

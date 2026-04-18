@@ -1,11 +1,10 @@
 node_modules/
 dist/
-# Logs
-*.log
-cleanup.py
 
+# Logs
+logs/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-logs/
 
+cleanup.py
