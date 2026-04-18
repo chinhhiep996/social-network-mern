@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import fs from 'fs';
+import path from 'path';
 import formidable from 'formidable';
 
 import User from '../models/user.model';
 import errorHandler from '../helpers/dbErrorHandler';
-import profileImage from './../../client/assets/images/profile-pic.png';
 
 const create = async (req, res) => {
     const user = new User(req.body);
@@ -60,7 +60,12 @@ const update = async (req, res) => {
     try {
         const [fields, files] = await form.parse(req);
         let user = req.profile;
-        user = _.extend(user, fields);
+        // formidable v3 returns arrays for field values
+        const flatFields = {};
+        for (const key in fields) {
+            flatFields[key] = Array.isArray(fields[key]) ? fields[key][0] : fields[key];
+        }
+        user = _.extend(user, flatFields);
         user.updated = Date.now();
         if (files.photo) {
             const photo = Array.isArray(files.photo) ? files.photo[0] : files.photo;
@@ -73,7 +78,7 @@ const update = async (req, res) => {
         res.json(user);
     } catch (err) {
         return res.status(400).json({
-            error: "Photo could not be uploaded"
+            error: "Could not update profile: " + err.message
         });
     }
 }
@@ -153,7 +158,7 @@ const photo = (req, res, next) => {
 }
 
 const defaultPhoto = (req, res) => {
-    return res.sendFile(process.cwd() + profileImage);
+    return res.sendFile(path.join(process.cwd(), '/client/assets/images/profile-pic.png'));
 }
 
 const remove = async (req, res) => {

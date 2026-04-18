@@ -97,8 +97,8 @@ class Comments extends Component {
                         {(new Date(item.created)).toDateString()} | 
                         {auth.isAuthenticated().user._id === item.postedBy._id &&
                             <Icon onClick={this.deleteComment(item)}
-                                className={classes.commentDate}>
-                                    delele
+                                className={classes.commentDelete}>
+                                    delete
                             </Icon>
                         }
                     </span>

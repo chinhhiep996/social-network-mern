@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { Card, CardActions, CardContent } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -118,7 +118,7 @@ class EditProfile extends Component {
             : `/api/users/defaultphoto`;
 
         if (this.state.redirectToProfile)
-            return (<Redirect to={'/user/' + this.state.id} />);
+            return (<Navigate to={'/user/' + this.state.id} replace />);
 
         return (
             <Card className={classes.card}>

@@ -36,10 +36,10 @@ class FollowGrid extends Component {
 
         return (
             <div className={classes.root}>
-                <ImageList cellHeight={160} className={classes.gridList} cols={4}>
+                <ImageList sx={{ width: 500, height: 220 }} cols={4}>
                     {
                         this.props.people.map((person, i) => {
-                            return <ImageListItem styles={{'height': 120}} key={i}>
+                            return <ImageListItem key={i}>
                                 <Link to={`/user/${person._id}`}>
                                     <Avatar src={`/api/users/photo/${person._id}`} className={classes.bigAvatar} />
                                     <Typography className={classes.tileText}>

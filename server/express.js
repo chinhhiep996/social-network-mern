@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import cookiePerser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import compress from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -16,8 +16,6 @@ import devBundle from './devBundle';
 // modules for server side rendering
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { SheetsRegistry } from 'react-jss';
-import JssProvider from 'react-jss';
 import { ThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
 import { indigo, pink } from '@mui/material/colors';
 import { StaticRouter } from 'react-router-dom';
@@ -33,7 +31,7 @@ app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cookiePerser());
+app.use(cookieParser());
 app.use(compress());
 app.use(helmet());
 app.use(cors());
@@ -44,7 +42,6 @@ app.use('/', postRoutes);
 app.use('/', chatRoutes);
 
 app.get(/(.*)/, (req, res) => {
-    const sheetsRegistry = new SheetsRegistry();
     const theme = createTheme({
         palette: {
             primary: {
@@ -64,19 +61,21 @@ app.get(/(.*)/, (req, res) => {
         },
     });
     const context = {};
-    const markup = ReactDOMServer.renderToString(
-        <StaticRouter location={req.url} context={context}>
-            <ThemeProvider theme={theme}>
-                <MainRouter />
-            </ThemeProvider>
-        </StaticRouter>
-    )
-    if (context.url)
-        return res.redirect(303, context.url);
-    const css = sheetsRegistry.toString();
+    let markup = '';
+    try {
+        markup = ReactDOMServer.renderToString(
+            <StaticRouter location={req.url}>
+                <ThemeProvider theme={theme}>
+                    <MainRouter />
+                </ThemeProvider>
+            </StaticRouter>
+        );
+    } catch (err) {
+        console.error('SSR error:', err.message);
+    }
     res.status(200).send(Template({
         markup: markup,
-        css: css
+        css: ''
     }));
 })
 

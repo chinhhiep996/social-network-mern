@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Icon from '@mui/material/Icon';
 import PropTypes from 'prop-types';
 import {withStyles} from '@mui/styles';
-import {Redirect} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import {signin} from './api-auth';
 import auth from './auth-helper';
@@ -79,7 +79,7 @@ class Signin extends Component {
         }
         const {redirectToReferrer} = this.state;
         if (redirectToReferrer)
-            return (<Redirect to={from}/>);
+            return (<Navigate to={from} replace />);
 
         return (
             <Card className={classes.card}>

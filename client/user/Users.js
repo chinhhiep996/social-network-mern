@@ -33,8 +33,8 @@ class Users extends Component {
 
     componentDidMount = () => {
         list().then((data) => {
-            if (data.error)
-                console.log(error);
+            if (data && data.error)
+                console.log(data.error);
             else
                 this.setState({ users: data })
         })
