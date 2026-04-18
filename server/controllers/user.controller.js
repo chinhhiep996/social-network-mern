@@ -33,6 +33,9 @@ const list = async (req, res) => {
 
 const userByID = async (req, res, next, id) => {
     try {
+        if (!id || id === 'undefined') {
+            return res.status(400).json({ error: 'Invalid user ID' });
+        }
         let user = await User.findById(id)
             .populate('following', '_id name')
             .populate('followers', '_id name');
@@ -149,11 +152,10 @@ const findPeople = async (req, res) => {
 }
 
 const photo = (req, res, next) => {
-    if (req.profile.photo.data) {
+    if (req.profile && req.profile.photo && req.profile.photo.data) {
         res.set("Content-Type", req.profile.photo.contentType);
         return res.send(req.profile.photo.data);
     }
-
     next();
 }
 

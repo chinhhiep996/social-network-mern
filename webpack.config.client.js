@@ -1,13 +1,11 @@
 const path = require('path')
-const webpack = require('webpack')
 const CURRENT_WORKING_DIR = process.cwd()
 
 const config = {
     name: "browser",
     mode: "development",
-    devtool: 'eval-source-map',
+    devtool: 'source-map',
     entry: [
-        'webpack-hot-middleware/client?reload=true',
         path.join(CURRENT_WORKING_DIR, 'client/main.js')
     ],
     output: {
@@ -20,9 +18,7 @@ const config = {
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                use: [
-                    'babel-loader',
-                ]
+                use: ['babel-loader']
             },
             {
                 test: /\.css$/,
@@ -33,11 +29,7 @@ const config = {
                 use: 'file-loader'
             }
         ]
-    },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
-    ]
+    }
 }
 
 module.exports = config;

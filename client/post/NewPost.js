@@ -105,7 +105,7 @@ class NewPost extends Component {
                 <Card className={classes.card}>
                     <CardHeader
                         avatar={
-                            <Avatar src={`/api/users/photo/${this.state.user._id}`} />
+                            <Avatar src={this.state.user._id ? `/api/users/photo/${this.state.user._id}` : `/api/users/defaultphoto`} />
                         }
                         title={this.state.user.name}
                         className={classes.cardHeader}

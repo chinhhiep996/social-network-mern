@@ -201,6 +201,24 @@ const sendMessage = async (req, res) => {
             .populate('sender', '_id name photo')
             .populate('readBy.user', '_id name');
 
+        // Emit socket event to all participants in the conversation room
+        const io = req.app.get('io');
+        if (io) {
+            io.to(`conversation:${messageData.conversation}`).emit('new_message', result);
+
+            // Notify participants not in the room
+            conversation.participants.forEach(participantId => {
+                const pid = participantId.toString();
+                if (pid !== userId.toString()) {
+                    io.to(`user:${pid}`).emit('notification', {
+                        type: 'new_message',
+                        conversation: messageData.conversation,
+                        message: result
+                    });
+                }
+            });
+        }
+
         return res.json(result);
     } catch (err) {
         return res.status(400).json({

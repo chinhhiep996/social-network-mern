@@ -13,16 +13,6 @@ import postRoutes from './routes/post.routes';
 import chatRoutes from './routes/chat.routes';
 import devBundle from './devBundle';
 
-// modules for server side rendering
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import { ThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
-import { indigo, pink } from '@mui/material/colors';
-import { StaticRouter } from 'react-router-dom';
-
-import MainRouter from './../client/MainRouter';
-//end
-
 const CURRENT_WORKING_DIR = process.cwd();
 const app = express();
 devBundle.compile(app); 
@@ -33,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 app.use(compress());
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors());
 
 app.use('/', userRoutes);
@@ -42,39 +32,8 @@ app.use('/', postRoutes);
 app.use('/', chatRoutes);
 
 app.get(/(.*)/, (req, res) => {
-    const theme = createTheme({
-        palette: {
-            primary: {
-                light: '#757de8',
-                main: '#3f51b5',
-                dark: '#002984',
-                contrastText: '#fff'
-            },
-            secondary: {
-                light: '#ff79b0',
-                main: '#ff4081',
-                dark: '#c60055',
-                contrastText: '#000'
-            },
-            openTitle: indigo['400'],
-            protectedTitle: pink['400'],
-        },
-    });
-    const context = {};
-    let markup = '';
-    try {
-        markup = ReactDOMServer.renderToString(
-            <StaticRouter location={req.url}>
-                <ThemeProvider theme={theme}>
-                    <MainRouter />
-                </ThemeProvider>
-            </StaticRouter>
-        );
-    } catch (err) {
-        console.error('SSR error:', err.message);
-    }
     res.status(200).send(Template({
-        markup: markup,
+        markup: '',
         css: ''
     }));
 })

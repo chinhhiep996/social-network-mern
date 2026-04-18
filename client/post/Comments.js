@@ -125,7 +125,7 @@ class Comments extends Component {
                 {
                     this.props.comments.map((comment, i) => {
                         return <CardHeader
-                            avatar={<Avatar src={`/api/users/photo/${comment.postedBy._id}`} />}
+                            avatar={<Avatar src={comment.postedBy?._id ? `/api/users/photo/${comment.postedBy._id}` : `/api/users/defaultphoto`} />}
                             title={commentBody(comment)}
                             className={classes.cardHeader}
                             key={i}

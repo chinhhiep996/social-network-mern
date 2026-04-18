@@ -137,7 +137,7 @@ class EditProfile extends Component {
                         className={classes.input}
                         id="icon-button-file" />
                     <label htmlFor="icon-button-file">
-                        <Button variant="contained" color="default" component="span">
+                        <Button variant="contained" color="inherit" component="span">
                             Upload <FileUpload />
                         </Button>
                     </label>

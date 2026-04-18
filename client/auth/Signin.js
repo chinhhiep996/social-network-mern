@@ -74,9 +74,8 @@ class Signin extends Component {
 
     render() {
         const {classes} = this.props;
-        const {from} = this.props.router.location.state || {
-            from: {pathname: '/'}
-        }
+        const locationState = this.props.router.location.state;
+        const from = (locationState && locationState.from) ? locationState.from : { pathname: '/' };
         const {redirectToReferrer} = this.state;
         if (redirectToReferrer)
             return (<Navigate to={from} replace />);
