@@ -1,2 +1,8 @@
 node_modules/
 dist/
+server.log
+cleanup.py
+debug.log
+dev_run_3001.log
+dev_run.log
+express_error.log
