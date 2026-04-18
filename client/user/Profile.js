@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@mui/styles';
 import { List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from '@mui/material'
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
@@ -17,14 +17,15 @@ import DeleteUser from './DeleteUser';
 import FollowProfileButton from './../user/FollowProfileButton';
 import { listByUser } from './../post/api-post';
 import ProfileTabs from './ProfileTabs';
+import {withRouter} from '../withRouter';
 
 const styles = theme => ({
-    root: theme.mixins.gutters({
+    root: {
         maxWidth: 600,
         margin: 'auto',
-        padding: 8 * 3,
-        marginTop: 8 * 5
-    }),
+        padding: theme.spacing(3),
+        marginTop: theme.spacing(5)
+    },
     title: {
         margin: `${8 * 3}px 0 ${8 * 2}px`,
         color: theme.palette.protectedTitle
@@ -37,15 +38,15 @@ const styles = theme => ({
 });
 
 class Profile extends Component {
-    constructor({ match }) {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             user: '',
             posts: [],
             redirectToSignin: false,
             following: false
         }
-        this.match = match
+        this.match = props.router.params
     }
 
     init = (userId) => {
@@ -70,11 +71,11 @@ class Profile extends Component {
     }
 
     componentDidMount = () => {
-        this.init(this.match.params.userId);
+        this.init(this.props.router.params.userId);
     }
 
     componentWillReceiveProps = (props) => {
-        this.init(props.match.params.userId);
+        this.init(props.router.params.userId);
     }
 
     checkFollow = (user) => {
@@ -138,7 +139,7 @@ class Profile extends Component {
             ? `/api/users/photo/${this.state.user._id}?${new Date().getTime()}`
             : `/api/users/defaultphoto`;
         if (redirectToSignin)
-            return <Redirect to='/signin' />
+            return <Navigate to='/signin' replace />
 
         return (
             <div>
@@ -191,4 +192,4 @@ Profile.propTypes = {
     classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(Profile);
+export default withRouter(withStyles(styles)(Profile));

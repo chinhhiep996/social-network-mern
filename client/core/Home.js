@@ -62,7 +62,7 @@ class Home extends Component {
             <div className={classes.root}>
                 {
                     this.state.defaultPage &&
-                    <Grid container spacing={24}>
+                    <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <Card className={classes.card}>
                                 <Typography variant="h5" component="h2" className={classes.title}>
@@ -80,7 +80,7 @@ class Home extends Component {
                 }
                 {
                     !this.state.defaultPage &&
-                    <Grid container spacing={24}>
+                    <Grid container spacing={3}>
                         <Grid item xs={8} sm={7}>
                             <Newsfeed />
                         </Grid>

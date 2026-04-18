@@ -1,14 +1,11 @@
 const path = require('path')
-const webpack = require('webpack')
 const CURRENT_WORKING_DIR = process.cwd()
 
 const config = {
     name: "browser",
     mode: "development",
-    devtool: 'eval-source-map',
+    devtool: 'source-map',
     entry: [
-        'react-hot-loader/patch',
-        'webpack-hot-middleware/client?reload=true',
         path.join(CURRENT_WORKING_DIR, 'client/main.js')
     ],
     output: {
@@ -21,20 +18,18 @@ const config = {
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                use: [
-                    'babel-loader',
-                ]
+                use: ['babel-loader']
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
             },
             {
                 test: /\.(ttf|eot|svg|gif|jpg|png|jpeg)(\?[\s\S]+)?$/,
                 use: 'file-loader'
             }
         ]
-    },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
-    ]
+    }
 }
 
 module.exports = config;

@@ -1,7 +1,6 @@
 import React from "react";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { indigo, pink } from '@mui/material/colors';
-import { hot } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
 
 import MainRouter from '../MainRouter';
@@ -36,4 +35,4 @@ function App() {
     );
 }
 
-export default hot(module)(App);
+export default App;

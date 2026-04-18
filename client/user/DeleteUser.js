@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
-import { Redirect, Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import { remove } from './api-user';
 import auth from './../auth/auth-helper';
@@ -29,7 +29,7 @@ class DeleteUser extends Component {
             userId: this.props.userId
         }, { t: jwt.token }).then((data) => {
             if(data.error) {
-                console.log(error);
+                console.log(data.error);
             } else {
                 auth.signout(() => console.log('deleted'));
                 this.setState({ redirect: true })
@@ -40,7 +40,7 @@ class DeleteUser extends Component {
     render() {
         const redirect = this.state.redirect;
         if(redirect)
-            return <Redirect to="/" />
+            return <Navigate to="/" replace />
 
         return (
             <span>

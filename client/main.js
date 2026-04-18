@@ -1,7 +1,7 @@
 import React from 'react';
-import { hydrateRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 
 import App from './components/App';
 
 const container = document.getElementById("root");
-hydrateRoot(container, <App />);
+createRoot(container).render(<App />);

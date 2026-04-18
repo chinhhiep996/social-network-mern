@@ -23,6 +23,10 @@ const config = {
                 ]
             },
             {
+                test: /\.css$/,
+                use: 'css-loader'
+            },
+            {
                 test: /\.(ttf|eot|svg|gif|jpg|png|jpeg)(\?[\s\S]+)?$/,
                 use: 'file-loader'
             }

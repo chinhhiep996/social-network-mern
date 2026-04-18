@@ -97,8 +97,8 @@ class Comments extends Component {
                         {(new Date(item.created)).toDateString()} | 
                         {auth.isAuthenticated().user._id === item.postedBy._id &&
                             <Icon onClick={this.deleteComment(item)}
-                                className={classes.commentDate}>
-                                    delele
+                                className={classes.commentDelete}>
+                                    delete
                             </Icon>
                         }
                     </span>
@@ -125,7 +125,7 @@ class Comments extends Component {
                 {
                     this.props.comments.map((comment, i) => {
                         return <CardHeader
-                            avatar={<Avatar src={`/api/users/photo/${comment.postedBy._id}`} />}
+                            avatar={<Avatar src={comment.postedBy?._id ? `/api/users/photo/${comment.postedBy._id}` : `/api/users/defaultphoto`} />}
                             title={commentBody(comment)}
                             className={classes.cardHeader}
                             key={i}
