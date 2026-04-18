@@ -10,6 +10,7 @@ import Template from './../template';
 import userRoutes from './routes/user.routes';
 import authRoutes from './routes/auth.routes';
 import postRoutes from './routes/post.routes';
+import chatRoutes from './routes/chat.routes';
 import devBundle from './devBundle';
 
 // modules for server side rendering
@@ -40,6 +41,7 @@ app.use(cors());
 app.use('/', userRoutes);
 app.use('/', authRoutes);
 app.use('/', postRoutes);
+app.use('/', chatRoutes);
 
 app.get(/(.*)/, (req, res) => {
     const sheetsRegistry = new SheetsRegistry();

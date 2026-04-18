@@ -1,4 +1,5 @@
 import { signout } from './api-auth';
+import { disconnectSocket } from '../chat/socket';
 
 const auth = {
     authenticate(jwt, cb) {
@@ -20,6 +21,7 @@ const auth = {
     signout(cb) {
         if (typeof window !== 'undefined')
             sessionStorage.removeItem('jwt');
+        disconnectSocket();
         cb();
         signout().then((data) => {
             document.cookie = "t=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"

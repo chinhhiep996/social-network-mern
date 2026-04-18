@@ -72,6 +72,7 @@ class Signup extends Component {
         return (
             <div>
                 <Card className={classes.card}>
+                <form onSubmit={(e) => { e.preventDefault(); this.clickSubmit(); }}>
                     <CardContent>
                         <Typography variant="h5" component="h2" className={classes.title}>
                             Sign Up
@@ -83,6 +84,7 @@ class Signup extends Component {
                             value={this.state.name}
                             onChange={this.handleChange('name')}
                             margin="normal"
+                            InputLabelProps={{ shrink: true }}
                         /> <br/>
                         <TextField
                             id="email"
@@ -92,6 +94,7 @@ class Signup extends Component {
                             value={this.state.email}
                             onChange={this.handleChange('email')}
                             margin="normal"
+                            InputLabelProps={{ shrink: true }}
                         /> <br/>
                         <TextField
                             id="password"
@@ -101,6 +104,7 @@ class Signup extends Component {
                             value={this.state.password}
                             onChange={this.handleChange('password')}
                             margin="normal"
+                            InputLabelProps={{ shrink: true }}
                         /> <br/>
                         {
                             this.state.error && (
@@ -119,15 +123,15 @@ class Signup extends Component {
                         <Button
                             color="primary"
                             variant="contained"
-                            onClick={this.clickSubmit}
+                            type="submit"
                             className={classes.submit}
-                            onClick={this.clickSubmit}
                         >
                             Submit
                         </Button>
                     </CardActions>
+                </form>
                 </Card>
-                <Dialog open={this.state.open} disableBackdropClick={true}>
+                <Dialog open={this.state.open} onClose={(event, reason) => { if(reason !== 'backdropClick') this.setState({open: false}) }}>
                     <DialogTitle>New Account</DialogTitle>
                     <DialogContent>
                         <DialogContentText>

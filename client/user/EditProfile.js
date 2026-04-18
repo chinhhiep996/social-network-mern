@@ -12,6 +12,7 @@ import Avatar from '@mui/material/Avatar';
 
 import { read, update } from './api-user';
 import auth from './../auth/auth-helper';
+import {withRouter} from '../withRouter';
 
 const styles = theme => ({
     card: {
@@ -51,8 +52,8 @@ const styles = theme => ({
 });
 
 class EditProfile extends Component {
-    constructor({ match }) {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             name: '',
             about: '',
@@ -61,7 +62,7 @@ class EditProfile extends Component {
             redirectToProfile: false,
             error: ''
         }
-        this.match = match;
+        this.match = props.router.params;
     }
 
     componentDidMount = () => {
@@ -69,7 +70,7 @@ class EditProfile extends Component {
         const jwt = auth.isAuthenticated();
 
         read({
-            userId: this.match.params.userId
+            userId: this.props.router.params.userId
         }, { t: jwt.token }).then((data) => {
             if (data.error)
                 this.setState({ error: data.error });
@@ -87,7 +88,7 @@ class EditProfile extends Component {
         const jwt = auth.isAuthenticated();
 
         update({
-            userId: this.match.params.userId
+            userId: this.props.router.params.userId
         }, {
             t: jwt.token
         }, this.userData).then((data) => {
@@ -151,6 +152,7 @@ class EditProfile extends Component {
                         value={this.state.name}
                         onChange={this.handleChange('name')}
                         margin="normal"
+                        InputLabelProps={{ shrink: true }}
                     /><br />
                     <TextField
                         id="multiline-flexible"
@@ -161,6 +163,7 @@ class EditProfile extends Component {
                         onChange={this.handleChange('about')}
                         className={classes.textField}
                         margin="normal"
+                        InputLabelProps={{ shrink: true }}
                     /><br />
                     <TextField
                         id="email"
@@ -170,6 +173,7 @@ class EditProfile extends Component {
                         value={this.state.email}
                         onChange={this.handleChange('email')}
                         margin="normal"
+                        InputLabelProps={{ shrink: true }}
                     /><br />
                     <TextField
                         id="password"
@@ -179,6 +183,7 @@ class EditProfile extends Component {
                         value={this.state.password}
                         onChange={this.handleChange('password')}
                         margin="normal"
+                        InputLabelProps={{ shrink: true }}
                     /><br />
                     {
                         this.state.error && (<Typography component="p" color="error">
@@ -210,4 +215,4 @@ EditProfile.propTypes = {
     classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(EditProfile);
+export default withRouter(withStyles(styles)(EditProfile));

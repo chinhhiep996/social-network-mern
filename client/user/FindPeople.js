@@ -15,10 +15,10 @@ import { findPeople, follow } from './api-user.js';
 import auth from './../auth/auth-helper';
 
 const styles = theme => ({
-    root: theme.mixins.gutters({
-        padding: 8,
+    root: {
+        padding: theme.spacing(1),
         margin: 0
-    }),
+    },
     title: {
         margin: `${8 * 3}px ${8}px ${8 * 2}px`,
         color: theme.palette.openTitle,

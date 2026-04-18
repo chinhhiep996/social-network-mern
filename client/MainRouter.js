@@ -9,6 +9,7 @@ import Signin from './auth/Signin';
 import Profile from './user/Profile';
 import EditProfile from './user/EditProfile';
 import PrivateRoute from './auth/PrivateRoute';
+import ChatPage from './chat/ChatPage';
 
 const MainRouter = () => {
     return (
@@ -28,6 +29,14 @@ const MainRouter = () => {
                     } 
                 />
                 <Route path="/user/:userId" element={<Profile />} />
+                <Route 
+                    path="/chat" 
+                    element={
+                        <PrivateRoute>
+                            <ChatPage />
+                        </PrivateRoute>
+                    } 
+                />
             </Routes>
         </div>
     );

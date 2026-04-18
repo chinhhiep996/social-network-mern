@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/Home';
+import ChatIcon from '@mui/icons-material/Chat';
 import Button from '@mui/material/Button';
 
 import auth from './../auth/auth-helper';
@@ -41,6 +42,11 @@ const Menu = () => {
                 {
                     auth.isAuthenticated() && (
                         <span>
+                            <Link to="/chat">
+                                <IconButton aria-label="Chat" style={isActive(location, "/chat")}>
+                                    <ChatIcon />
+                                </IconButton>
+                            </Link>
                             <Link to={`/user/${ auth.isAuthenticated().user._id }`}>
                                 <Button style={ isActive(location, `/user/${auth.isAuthenticated().user._id}`) }>
                                     My Profile

@@ -8,6 +8,21 @@ services:
     volumes:
       - mongo-data:/data/db
 
+  # Redis service for Socket.IO scaling
+  redis:
+    image: redis:7-alpine
+    container_name: social-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   # Node.js application service
   app:
     build: .
@@ -19,8 +34,13 @@ services:
       - MONGODB_URI=mongodb://mongo:27017/social
       - PORT=3000
       - JWT_SECRET=KHKDJSIOJFWEOF4346346JNDSKLFDSKLNVDLS
+      - REDIS_URL=redis://redis:6379
     depends_on:
-      - mongo
+      mongo:
+        condition: service_started
+      redis:
+        condition: service_healthy
 
 volumes:
   mongo-data:
+  redis-data:

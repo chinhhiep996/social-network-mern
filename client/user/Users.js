@@ -13,10 +13,10 @@ import { withStyles } from '@mui/styles';
 import { list } from './api-user';
 
 const styles = theme => ({
-    root: theme.mixins.gutters({
-        padding: 8,
-        margin: 8 * 5
-    }),
+    root: {
+        padding: theme.spacing(3),
+        margin: theme.spacing(5)
+    },
     title: {
         margin: `${8 * 4}px 0 ${8 * 2}px`,
         color: theme.palette.openTitle

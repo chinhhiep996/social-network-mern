@@ -37,13 +37,13 @@ const userByID = async (req, res, next, id) => {
             .populate('following', '_id name')
             .populate('followers', '_id name');
         if (!user)
-            return res.status('400').json({
+            return res.status(400).json({
                 error: 'User not found'
             });
         req.profile = user;
         next();
     } catch (err) {
-        return res.status('400').json({
+        return res.status(400).json({
             error: 'Could not retrieve user'
         });
     }
